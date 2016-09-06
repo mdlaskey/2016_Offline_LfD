@@ -157,13 +157,17 @@ Learning from demonstration algorithms are either passive or adaptive . It has b
 
 
 \section{Introduction} 
-In model-free robot Learning from Demonstration (LfD), a robot learns to perform a task, such as driving or grasping an object in a cluttered environment, from examples provided by an expert, usually a human. Learning from demonstration has been applied to a large number of robotic tasks, including helicopter maneuvering~\cite{abbeel2007application}, car parking~\cite{abbeel2008apprenticeship} , robotic surgery~\cite{van2010superhuman,laskeyshiv} and robotic manipulation~\cite{laskeyrobot}. 
-
-In the supervised learning approach to LfD, a robot's policy , or a mapping from the state space to controls, is learned via regression or classification. The passive approach to LfD is to collect expert demonstrations on the states the expert is likely to visit. However, the conventional wisdom is that due to error in learning the robot's policy will not match the expert and cause it to visit different states when performing the task. A common trend in LfD, is adaptivity, which is to have the expert retro-actively provide feedback (or the correct control signal) to the robot on the states that it visits~\cite{ross2010efficient,ross2010reduction,laskeyrobot,laskeyshiv,he2012imitation}.
-
+In model-free robot Learning from Demonstration (LfD), a robot learns to perform a task, such as driving or grasping an object in a cluttered environment, from examples provided by an expert, usually a human. 
+Learning from demonstration has been applied to a large number of robotic tasks, including helicopter maneuvering~\cite{abbeel2007application}, car parking~\cite{abbeel2008apprenticeship} , robotic surgery~\cite{van2010superhuman,laskeyshiv} and robotic manipulation~\cite{laskeyrobot}. 
 
 
-Error in learning though can occur due to two reasons: 1) is the model, or robot's policy, is not capable of representing a the expert's expected policy or 2) there is currently not enough demonstrations to recover the expected expert's policy. If the first reason occurs than the robot will never recover the expected expert's policy even in the limit of infinite data. Adaptivity may be useful because the robot will always visit different states than the expert. 
+In the supervised learning approach to LfD, a robot's policy , or a mapping from the state space to controls, is learned via regression or classification. 
+The passive approach to LfD is to collect expert demonstrations on the states the expert is likely to visit. However, the conventional wisdom is that due to error in learning the robot's policy will not match the expert and cause it to visit different states when performing the task. A common trend in LfD, is adaptivity, which is to have the expert retro-actively provide feedback (or the correct control signal) to the robot on the states that it visits~\cite{ross2010efficient,ross2010reduction,laskeyrobot,laskeyshiv,he2012imitation}.
+
+
+
+Error in learning though can occur due to two reasons: 1) is the model, or robot's policy, is not capable of representing a the expert's expected policy or 2) there is currently not enough demonstrations to recover the expected expert's policy. 
+If the first reason occurs than the robot will never recover the expected expert's policy even in the limit of infinite data. Adaptivity may be useful because the robot will always visit different states than the expert. 
 
 However, in second case where not enough data has been collected. A question exists should it be better to collect data from the distribution of the current robot's policy or that of the expert's. Our insight, it that  when the robot's policy is capable of learning the expected expert's policy the robot will want to collect data from solely the expert's distribution. 
 
