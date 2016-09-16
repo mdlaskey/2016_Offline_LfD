@@ -516,8 +516,7 @@ To better understand the empirical results from above, we contribute new theoret
 
 \subsection{Algorithm Consistency}\label{sec:consistent}
 In this section we work towards a fuller understanding of the tradeoffs between HC and RC. 
-One of the motivations for the use of the RC LfD algorithm is that the feedback from the supervisor is being provided for the trajectory that is the result of executing the latest learned policy.
-That is, instead of the supervisor repeatedly demonstrating the task over and over to the robot without any corrective feedback to the robot's learned policy (as is done in HC LfD), at each time in RC LfD the robot attempts the task with what knowledge it has gained about the task so far and the supervisor provides feedback on this attempt. 
+One of the motivations for the use of the RC LfD algorithm is that the feedback from the supervisor is being provided for trajectories executed with the latest learned policy.
 The RC approach is particularly appealing when the robot's policy is incapable of matching the supervisor's demonstrations exactly.  
 This intuition along with a theoretical analysis of Ross et al. ~\cite{ross2010reduction} has led to use of the RC approach~\cite{zhang2016query,he2012imitation,ross2013learning}.
 
@@ -529,18 +528,17 @@ Online learning is analyzed in the context of a regret guarantee: an upper bound
 \end{align*}
 In the context of robotics and specifically in the case of RC LfD, taking an action $\theta_k$ at iteration $k$ is rolling out a policy dictated by $\theta_k$ which induces a series of states $\bx_{k,1},\dots,\bx_{k,T}$ and the loss is evaluated with respect to {\em these} states.  
 Because these particular states could have been produced by a poor policy due to initialization, they could have little relevance to the task of interest and consequently, it makes little sense to compare to the policy that performs best on these particular states.
-What is important is the absolute performance of a policy on the task of interest. 
 In the notation of Ross et al.~\cite{ross2010reduction} this notion of relative regret is encoded in the $\epsilon_N$ error term that appears in their bounds and is defined relative to the particular set of rollouts observed by the RC LfD policy.
 
 As an example for why low-regret may be uninformative, consider a car-racing game where the car has constant speed and the policy only decides to go straight, left, or right at the current state. 
 Suppose at some point in the race the car encounters a ``v'' in the road where one path is a well-paved road and the other path is a muddy dirt road with obstacles. 
-The car will finish the race faster by taking the paved road, but due to either the stochastic dynamics or imperfectness of the supervisor it is possible that after just a small number of supervisor demonstrations given to the robot to initialize RC LfD, a poor initial policy will be learned that leads the car down the dirt road versus the paved road. 
+The car will finish the race faster by taking the paved road, but due to stochasticity in the dynamics or supervisor demonstrations it is possible that after a small number of demonstrations to initialize RC LfD, a poor initial policy will be learned that lead the car down the dirt road. 
 When this policy is rolled out the supervisor will penalize the decision at the time point of taking the dirt versus paved road. 
-But if the policy's actions agree with the supervisor once the car is on the dirt road (i.e., making the best of a bad situation) this policy will incur low-regret because the majority of the time the policy was acting in accordance with the supervisor.
-Thus, in this example a globally bad policy will be learned (because it took the dirt road instead of the paved road) but relative to the best policy acting on the dirt road, it performs pretty well. 
+However, if the policy's actions agree with the supervisor once the car is on the dirt road (i.e., making the best of a bad situation) this policy will incur low-regret because the majority of the time the policy was acting in accordance with the supervisor.
+Thus, a globally bad policy will be learned but relative to the best policy acting on the dirt road, it performs pretty well. 
 
-But more concerning than a potentially uninformative performance guarantee is that RC LfD is performing a greedy strategy for optimization and has the potential to get stuck in local minima.
-The next theorem shows an instance in which an initial policy can be different enough from the optimal policy that the states visited by the initial policy -- even with corrective feedback from the supervisor --  are not informative or relevant enough to the task to guide RC LfD to the optimal policy. 
+Another shortcoming of RC LfD is that it performs a greedy strategy for optimization and has the potential to get stuck in local minima.
+The next theorem shows an instance in which an initial policy can be different enough from the optimal policy that the states visited by the initial policy - even with corrective feedback from the supervisor - are not informative or relevant enough to the task to guide RC LfD to the optimal policy. 
 
 \begin{theorem}
 For a given environment (state space, action space, dynamics mapping state-action pairs to states, and a loss function) and policy class $\Theta$,
@@ -572,7 +570,7 @@ Let $\{ \{ (\bx_{k,t},\bu_{k,t} \}_{t=0}^3 \}_{k=1}^N$ denote $N$ trajectories.
 Consider an environment with a deterministic initial state at the root of the DAG of Figure~\ref{fig:c_ex} so that $p(\bx_{k,0} = \texttt{root}) = 1$ for all $k$. 
 The space of policies are constant functions $\Theta = \{L,R\}$ where if $\theta=L$ then regardless of the state, the control input $\bu_{k,t}$ will be to take the left child (and analogously for $\theta=R$ taking the right child). 
 For any state in the DAG with children, let $\phi(\bx_{k,t},\theta)$ denote the left child of $\bx_{k,t}$ if $\theta=L$ and the right child otherwise. 
-The dynamics are described as follows: for some $\mu \in (0,1/4]$ to be defined later, if $\theta=L$ and $\bx_{k,t}=\texttt{root}$ then $p(\bx_{k,1}=\phi(\bx_{k,0},R))=\mu$ and $p(\bx_{k,1}=\phi(\bx_{k,0},L))=1-\mu$, but if $\theta=R$ then the right child is chosen with probability $1$. If $\bx_{k,t} \neq \texttt{root}$ then $\bx_{k,t+1} = \phi(\bx_{k,t},\theta)$.
+The dynamics are described as follows: for some $\mu \in (0,1/4]$ to be defined later, if $\theta=L$ and $\bx_{k,0}=\texttt{root}$ then $p(\bx_{k,1}=\phi(\bx_{k,0},R))=\mu$ and $p(\bx_{k,1}=\phi(\bx_{k,0},L))=1-\mu$, but if $\theta=R$ then the right child is chosen with probability $1$. If $\bx_{k,t} \neq \texttt{root}$ then $\bx_{k,t+1} = \phi(\bx_{k,t},\theta)$.
 
 Assume that the supervisor $\pi^*: \mathcal{X} \rightarrow \{L,R\}$ acts greedily according to the given rewards given in the DAG so that $\pi^*(\bx_{k,t})=L$ if the reward of the left child exceeds the right child and $\pi^*(\bx_{k,t})=R$ otherwise.
 Finally, define the state loss function $\ell(\cdot,\cdot)$ as the $0/1$ loss so that after $N$ trajectories, the loss is given as $J_N(\theta)=\sum_{k=1}^N \sum_{t=0}^2 \mathbf{1}\{ \pi^*(\bx_{k,t}) \neq \theta \}$ for all $\theta \in \{L,R\}$. Note that $\widehat{\theta}_N = \arg\min_{\theta \in \{L,R\}} J_N(\theta)$ is equivalent to looking at all actions by the supervisor over the states and taking the majority vote of $L$ versus $R$ (i.e., the states in which these actions are taken has no impact on the minimizer). Note that we have not yet specified how the states $\bx_{k,t}$ were generated. 
