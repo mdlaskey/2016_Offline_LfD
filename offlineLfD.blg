@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2014)
+This is BibTeX, Version 0.99d (TeX Live 2016)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: offlineLfD.aux
 The style file: IEEEtranS.bst
@@ -8,64 +8,64 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: references.bib
-You're missing a field part---line 805 of file references.bib
+Repeated entry---line 145 of file references.bib
+ : @article{shalev2011online
+ :                          ,
+I'm skipping whatever remains of this entry
+You're missing a field part---line 856 of file references.bib
  :     title = 
  :             ,
 I'm skipping whatever remains of this entry
--- IEEEtranS.bst version 1.13 (2008/09/30) by Michael Shell.
+Warning--I didn't find a database entry for "laskeyshiv"
+-- IEEEtranS.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 ** Sorting version - not for normal IEEE work.
 Warning--to sort, need author, organization, or key in tensor
-Warning--empty year in abbeel2008apprenticeship
 Warning--empty booktitle in akgun2012novel
 Warning--empty year in akgun2012novel
-Warning--empty journal in laskeyrobot
-Warning--empty year in laskeyrobot
-Warning--empty journal in laskeyshiv
-Warning--empty year in laskeyshiv
 Warning--empty year in ross2013learning
 
 Done.
-You've used 22 entries,
-            4498 wiz_defined-function locations,
-            1016 strings with 12322 characters,
-and the built_in function-call counts, 18812 in all, are:
-= -- 1607
-> -- 619
-< -- 111
-+ -- 318
-- -- 162
-* -- 970
-:= -- 2762
-add.period$ -- 48
-call.type$ -- 22
-change.case$ -- 146
-chr.to.int$ -- 282
-cite$ -- 31
-duplicate$ -- 1191
-empty$ -- 1433
-format.name$ -- 180
-if$ -- 4198
+You've used 24 entries,
+            4566 wiz_defined-function locations,
+            1051 strings with 12830 characters,
+and the built_in function-call counts, 22576 in all, are:
+= -- 1956
+> -- 697
+< -- 162
++ -- 366
+- -- 174
+* -- 1220
+:= -- 3272
+add.period$ -- 52
+call.type$ -- 24
+change.case$ -- 156
+chr.to.int$ -- 402
+cite$ -- 28
+duplicate$ -- 1401
+empty$ -- 1654
+format.name$ -- 194
+if$ -- 5122
 int.to.chr$ -- 0
-int.to.str$ -- 22
-missing$ -- 209
-newline$ -- 91
-num.names$ -- 42
-pop$ -- 650
+int.to.str$ -- 24
+missing$ -- 236
+newline$ -- 97
+num.names$ -- 46
+pop$ -- 677
 preamble$ -- 1
-purify$ -- 124
+purify$ -- 132
 quote$ -- 2
-skip$ -- 1347
+skip$ -- 1631
 stack$ -- 0
-substring$ -- 792
-swap$ -- 858
-text.length$ -- 17
+substring$ -- 1084
+swap$ -- 1087
+text.length$ -- 28
 text.prefix$ -- 0
 top$ -- 6
-type$ -- 241
-warning$ -- 9
-while$ -- 86
-width$ -- 24
-write$ -- 211
-(There was 1 error message)
+type$ -- 263
+warning$ -- 4
+while$ -- 110
+width$ -- 26
+write$ -- 242
+(There were 2 error messages)
